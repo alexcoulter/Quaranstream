@@ -21,7 +21,7 @@ $(document).ready(function() {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
+    signUpUser(userData.email);
     $("input#email-input").val("");
     $("input#password-input").val("");
   });
@@ -35,7 +35,7 @@ $(document).ready(function() {
     })
       .then(function(data) {
         window.location.replace("/questionaire");
-        console.log(data.email, data.password);
+        console.log(data.email);
         // If there's an error, handle it by throwing up a bootstrap alert
       })
       .catch(handleLoginErr);
