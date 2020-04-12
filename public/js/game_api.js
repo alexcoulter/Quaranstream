@@ -23,13 +23,13 @@ function getPopularGames(genreId, platformId, cb) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "user-key": ""
+      "user-key": "898f9a6bd19c44b6ab2b68966a66df4b"
     },
     data: criteria
   })
     .then(function(response) {
       res = response;
-      console.log(res);
+      // console.log(res);
       cb(res);
 
       // for (var i = 0; i < res.length; i++) {

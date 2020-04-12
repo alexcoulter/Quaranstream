@@ -1,0 +1,7 @@
+gameApiKey=898f9a6bd19c44b6ab2b68966a66df4b
+videoApiKey=d2fda7b3aa19f98b6e6247cb2d5574011b431d8a41de201f4ee1de3cf0da3763 
+musicApiKey=eb468e00eb576b259b24d5682bafa312
+NAME=root
+SECRET=53cr3t!!
+PASSWORD=newpass
+JAWSDB_URL = 'mysql://ka3putvrkemfef0k:f1mdnn740irzaiu9@qbhol6k6vexd5qjs.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/osdrs8n5y4mwk245'

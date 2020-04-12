@@ -13,73 +13,64 @@
 
 // genreId = "comedy";
 // type = "show";
-// getPopularVideos(genreId, type, function(result){
-//   console.log(result);
-// });
+// getPopularVideos(genreId, type, cb);
 
 //Gets a list of popular movies or tv shows by genre if a genreId value was passed
 function getPopularVideos(genreId, type, cb) {
-  var url = "https://api.trakt.tv/" + type + "s/trending?limit=5&extended=full";
+  var url =
+    "https://api.trakt.tv/" + type + "s/trending?limit=25&extended=full";
   if (genreId) {
     url += "&genres=" + genreId;
   }
-  console.log(url);
 
   var request = new XMLHttpRequest();
 
-  request.open("GET", url, false);
+  request.open("GET", url);
 
   request.setRequestHeader("Content-Type", "application/json");
   request.setRequestHeader("trakt-api-version", "2");
   request.setRequestHeader(
     "trakt-api-key",
-    ""
+    "d2fda7b3aa19f98b6e6247cb2d5574011b431d8a41de201f4ee1de3cf0da3763"
   );
 
-  request.send();
-  request.onreadystatechange = alertContents;
-  function alertContents() {
-    if (request.readyState === XMLHttpRequest.DONE) {
-      if (request.status === 200) {
-        var response = JSON.parse(request.responseText);
-        alert(response.computedString);
-        console.log(response);
-      } else {
-        alert("There was a problem with the request.");
-      }
+  request.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      console.log(type.toUpperCase());
+      console.log("Status:", this.status);
+      console.log("Headers:", this.getAllResponseHeaders());
+      console.log("Body:", this.responseText);
+      var res = JSON.parse(this.responseText);
+      console.log(res);
+      cb(res);
+      // for (var i = 0; i < res.length; i++) {
+      //   if (type === "movie") {
+      //     console.log(
+      //       i +
+      //         1 +
+      //         ") " +
+      //         res[i].movie.title +
+      //         " " +
+      //         res[i].movie.year
+      //     );
+      //   } else if (type === "show") {
+      //     console.log(
+      //       i + 1 + ") " + res[i].show.title + " " + res[i].show.year
+      //     );
+      //   }
+      // }
     }
-  }
-  // request.onreadystatechange = function() {
-  //   if (request.readyState == 4 && request.status == 200) {
-  //     console.log(request.responseText);
-  //     cb(request.responseText);
-  //   }
-  // };
-  // for (var i = 0; i < res.length; i++) {
-  //   if (type === "movie") {
-  //     console.log(
-  //       i +
-  //         1 +
-  //         ") " +
-  //         res[i].movie.title +
-  //         " " +
-  //         res[i].movie.year
-  //     );
-  //   } else if (type === "show") {
-  //     console.log(
-  //       i + 1 + ") " + res[i].show.title + " " + res[i].show.year
-  //     );
-  //   }
-  // }
+  };
+  request.send();
 }
 
 //necessary passed in values
-type = "show";
-name = "the OfFicE";
+// type = "show";
+// name = "the OfFicE";
 // videoInfo(name, type);
 
-type = "movie";
-name = "the lobster";
+// type = "movie";
+// name = "the lobster";
 // videoInfo(name, type);
 
 //Get detailed info for 1 movie or show

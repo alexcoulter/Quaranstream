@@ -4,10 +4,7 @@ module.exports = {
     password: process.env.PASSWORD,
     database: "quaranstream_db",
     host: "127.0.0.1",
-    dialect: "mysql",
-    define: {
-      timestamps: false
-  }
+    dialect: "mysql"
   },
   test: {
     username: process.env.NAME,

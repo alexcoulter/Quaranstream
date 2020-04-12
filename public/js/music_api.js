@@ -2,19 +2,29 @@
 // require("dotenv").config();
 // var genre = "";
 // genre = "indie";
-
+// getPopularArtists($("#musicGenre").val(), function(result) {
+//   const musicData = result;
+//   console.log(musicData);
+// });
+var genre;
+$("#submitBtn").on("click", function() {
+  window.genre = $("#musicGenre1").val();
+  console.log(genre);
+});
 // getPopularArtists(genre);
+
 //top artists
 function getPopularArtists(genre, cb) {
+  console.log(genre);
   var queryURL =
     "http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=" +
-    "" +
+    "eb468e00eb576b259b24d5682bafa312" +
     "&format=json";
   if (genre) {
     queryURL = "http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists";
     queryURL += "&tag=" + genre;
     queryURL +=
-      "&api_key=" + "" + "&format=json";
+      "&api_key=" + "eb468e00eb576b259b24d5682bafa312" + "&format=json";
   }
   console.log(queryURL);
 
