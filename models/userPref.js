@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
       avatarImg: {
         type: DataTypes.STRING
       },
+      bio: {
+        type: DataTypes.STRING
+      },
       enjoyMovieTV: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
       },
       enjoyMusic: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
       },
       enjoyGame: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
       },
       platform: {
         type: DataTypes.STRING

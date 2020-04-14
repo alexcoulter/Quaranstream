@@ -7,11 +7,11 @@
 
 function getPopularGames(genreId, platformId, cb) {
   criteria =
-    "fields aggregated_rating,genres,name,platforms,rating,similar_games,summary; limit 5; sort popularity desc; where rating > 60 & rating_count > 0 ";
-  if (genreId) {
+    "fields aggregated_rating,genres,name,platforms,rating,similar_games,summary; limit 5; sort popularity desc; where rating > 50;";
+  if (genreId !== "0") {
     criteria += " & genres = " + genreId;
   }
-  if (platformId) {
+  if (platformId !== "0") {
     criteria += " & platforms = " + platformId;
   }
   criteria += ";";
@@ -23,13 +23,13 @@ function getPopularGames(genreId, platformId, cb) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "user-key": gamePw
+      "user-key": ""
     },
     data: criteria
   })
     .then(function(response) {
       res = response;
-      // console.log(res);
+      console.log(res);
       cb(res);
 
       // for (var i = 0; i < res.length; i++) {
@@ -60,7 +60,7 @@ function findGameId(gameName) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "user-key": gamePw
+      "user-key": ""
     }
   })
     .then(function(response) {
@@ -91,7 +91,7 @@ function getGameById(gameId) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "user-key": gamePw
+      "user-key": ""
     },
     data: criteria
   })

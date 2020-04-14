@@ -3,3 +3,14 @@ html, body, header,
   height: 100%;
   min-height: 100%;
 }
+
+.navbar {    
+  background-color: black;
+}
+
+.logo {
+  max-height: 200px;
+  text-align: center;
+  margin: 0 auto;
+} 
+

@@ -15,7 +15,6 @@ module.exports = {
   },
   production: {
     use_env_variable: "JAWSDB_URL",
-    dialect: "mysql",
-    "use_env_variable": "DATABASE_URL"
+    dialect: "mysql"
   }
 };

@@ -17,11 +17,11 @@
 
 //Gets a list of popular movies or tv shows by genre if a genreId value was passed
 function getPopularVideos(genreId, type, cb) {
-  var url =
-    "https://api.trakt.tv/" + type + "s/trending?limit=25&extended=full";
-  if (genreId) {
+  var url = `https://api.trakt.tv/${type}s/trending?limit=5&extended=full`;
+  if (genreId !== "0") {
     url += "&genres=" + genreId;
   }
+  console.log(url);
 
   var request = new XMLHttpRequest();
 
@@ -31,17 +31,16 @@ function getPopularVideos(genreId, type, cb) {
   request.setRequestHeader("trakt-api-version", "2");
   request.setRequestHeader(
     "trakt-api-key",
-    videoPw
+    ""
   );
 
   request.onreadystatechange = function() {
     if (this.readyState === 4) {
-      console.log(type.toUpperCase());
-      console.log("Status:", this.status);
-      console.log("Headers:", this.getAllResponseHeaders());
-      console.log("Body:", this.responseText);
+      // console.log("Status:", this.status);
+      // console.log("Headers:", this.getAllResponseHeaders());
+      // console.log("Body:", this.responseText);
       var res = JSON.parse(this.responseText);
-      console.log(res);
+      // console.log(res);
       cb(res);
       // for (var i = 0; i < res.length; i++) {
       //   if (type === "movie") {
@@ -89,7 +88,7 @@ function videoInfo(name, type) {
 
   request.setRequestHeader("Content-Type", "application/json");
   request.setRequestHeader("trakt-api-version", "2");
-  request.setRequestHeader("trakt-api-key", videoPw);
+  request.setRequestHeader("trakt-api-key", "");
 
   request.onreadystatechange = function() {
     tvGenreArray = [];
