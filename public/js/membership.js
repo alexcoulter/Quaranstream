@@ -52,27 +52,29 @@ $(document).ready(function () {
       // $(`#movieRating${i + 1}`).text(
       //   "Rating:  " + movieData[i].movie.rating.toFixed(2)
       // );
-      $(`#movieTrailer${i + 1}`).html(
-        `<span>Link: </span><a href = "${movieData[i].movie.trailer}">Movie Trailer</a>`
+      $(`#movieRating${i + 1}`).html(
+        `Rating:   ${movieData[i].movie.rating.toFixed(2)}`
       );
 
       $(`#movieExtra${i + 1}`).html("<p></p>");
       $(`#movieExtra${i + 1}`).hide();
       $(`#movie${i + 1}Add`).on("click", function () {
-        const trailer = movieData[i].movie.trailer.split("=");
-        console.log(trailer[1]);
-        const trailerEmbed = "https://www.youtube.com/embed/" + trailer[1];
+        if (movieData[i].movie.trailer) {
+          const trailer = movieData[i].movie.trailer.split("=");
+          console.log(trailer[1]);
+          var trailerEmbed = `<iframe width="90%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else {
+          var trailerEmbed = "";
+        }
         $(`#movieExtra${i + 1}`).toggle("slow");
         $(`#movieExtra${i + 1}`).html(`
         <p>${movieData[i].movie.overview}</p>
         <p>Certification: ${movieData[i].movie.certification}</p>
         <p>Runtime: ${movieData[i].movie.runtime} Minutes</p>
-        <p>Rating:   ${movieData[i].movie.rating.toFixed(2)}</p>
-        <iframe width="90%" height="360px" src="${trailerEmbed}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+       ${trailerEmbed}`);
       });
     }
   }
-
 
   function buildShows(showData, mySet) {
     // console.log(showData);
@@ -84,29 +86,34 @@ $(document).ready(function () {
         showData[i].show.title + "  (" + showData[i].show.year + ")"
       );
 
-      $(`#showTrailer${i + 1}`).html(
-        `<span>Link: </span><a href = "${showData[i].show.trailer}">TV Show Trailer</a>`
+      $(`#showRating${i + 1}`).html(
+        `Rating:   ${showData[i].show.rating.toFixed(2)}`
       );
 
       $(`#showExtra${i + 1}`).html("<p></p>");
       $(`#showExtra${i + 1}`).hide();
       $(`#show${i + 1}Add`).on("click", function () {
-        const trailer = showData[i].show.trailer.split("=");
-        console.log(trailer[1]);
-        const trailerEmbed = "https://www.youtube.com/embed/" + trailer[1]
+        if (showData[i].show.trailer) {
+          const trailer = showData[i].show.trailer.split("=");
+          console.log(trailer[1]);
+          var trailerEmbed = `<iframe width="90%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else {
+          var trailerEmbed = "";
+        }
+
         $(`#showExtra${i + 1}`).toggle("slow");
         $(`#showExtra${i + 1}`).html(`<p>${showData[i].show.overview}</p>
         <p>Network: ${showData[i].show.network}</p>
         <p>Certification: ${showData[i].show.certification}</p>
         <p>Runtime: ${showData[i].show.runtime} Minutes</p>
-        <p>Rating:   ${showData[i].show.rating.toFixed(2)}</p>
-        <iframe width="90%" height="360px" src="${trailerEmbed}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+       ${trailerEmbed}`);
       });
     }
   }
 
   function buildGames(gameData, mySet) {
     console.log(mySet);
+    console.log(gameData);
     if (mySet.play1 !== "0") {
       $("#gameGenre")
         .text("Top Game Picks - " + mySet.play1)
@@ -122,6 +129,7 @@ $(document).ready(function () {
       );
       $(`#gameExtra${i + 1}`).html("<p></p>");
       $(`#gameExtra${i + 1}`).hide();
+
       $(`#game${i + 1}Add`).on("click", function () {
         $(`#gameExtra${i + 1}`).toggle("slow");
 
@@ -129,17 +137,21 @@ $(document).ready(function () {
           gameId: gameData[i].id,
         })
           .then(function (data) {
-            // console.log(data);
-            if (gameData[i].rating) {
-              gameRating = `<p>Rating:  ${gameData[i].rating.toFixed(2)}</p>`;
+            console.log(data);
+            if (data[0].rating) {
+              var gameRating = `<p>Rating:  ${data[0].rating.toFixed(2)}</p>`;
             } else {
-              gameRating = "";
+              var gameRating = "";
+            }
+            if (data[0].screenshots) {
+              var screenshot = ` <p>Screenshot:</p><img src = "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${data[0].screenshots[0].image_id}.jpg" width = "90%"></img>`;
+            } else {
+              screenshot = "";
             }
 
-            $(`#gameExtra${i + 1}`).html(`<p>${gameData[i].summary}</p>
+            $(`#gameExtra${i + 1}`).html(`<br><p>${data[0].summary}</p>
             ${gameRating}
-            <p>Screenshot:</p>
-            <img src = "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${data[0].screenshots[0].image_id}.jpg" width = "90%">`);
+           ${screenshot}`);
           })
           .catch(function (error) {
             console.log(error);
@@ -278,7 +290,7 @@ $(document).ready(function () {
       videoGenre: mySet.watch1,
     })
       .then(function (data) {
-        // console.log(data);
+        console.log(data);
         buildMovies(data, mySet);
       })
       .catch(function (error) {

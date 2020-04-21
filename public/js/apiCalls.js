@@ -108,11 +108,11 @@ function gameApiSolo(gameId, callback) {
     .then(function (response) {
       var res = response.data;
       console.log(res);
-      console.log(
-        "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/" +
-          res[0].screenshots[0].image_id +
-          ".jpg"
-      );
+      // console.log(
+      //   "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/" +
+      //     res[0].screenshots[0].image_id +
+      //     ".jpg"
+      // );
       callback(res);
       //   console.log("Name: " + res[0].name);
       //   console.log("Rating: " + res[0].rating);
