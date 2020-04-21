@@ -8,8 +8,17 @@ html, body, header,
   background-color: black;
 }
 
+.about {
+  font-size:24px;
+  font-weight:bold;
+}
+
+p {
+    font-weight:bold;
+}
+
 .logo {
-  max-height: 200px;
+  max-height: 300px;
   text-align: center;
   margin: 0 auto;
 } 

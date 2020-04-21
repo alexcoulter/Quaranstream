@@ -1,12 +1,13 @@
 $(document).ready(function () {
   $("select").formSelect();
-  $('.materialboxed').materialbox();
-  $('.slider').slider();
+  $(".materialboxed").materialbox();
+  $(".slider").slider();
+  $(".sidenav").sidenav();
 
   $(".carousel").carousel({
     dist: -50,
     shift: 0,
-    padding: 20
+    padding: 20,
   });
 
   $("#gameCheck").on("change", function () {
@@ -50,7 +51,7 @@ $(document).ready(function () {
   var id;
 
   $.get("/api/user_data", function (info) {
-    console.log(info);
+    // console.log(info);
     id = info.id;
   });
 
@@ -58,174 +59,92 @@ $(document).ready(function () {
 
   $(".material-icons").on("click", function () {
     photoPath = $(this).data("path");
-    // console.log("Clicked!");
-    // console.log(photoPath);
+    $(this).html("check_box");
   });
 
   $("#submitBtn").on("click", function () {
     event.preventDefault();
-    
-    $.post("/api/game_genres", {
-      platformId: $("#console").val(),
-      genreId: $("#gameGenre1").val()
-    }).then(function (data) {
-      console.log(data);
-      localStorage.setItem("gameObj", JSON.stringify(data));
-      
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    //movie Api call
-    $.post("/api/movie_genres", {
-      videoGenre: $("#videoGenre1").val(),
-    }).then(function (data) {
-      console.log(data);
-      localStorage.setItem("movieObj", JSON.stringify(data));
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    //TV Api call
-    $.post("/api/show_genres", {
-      videoGenre: $("#videoGenre1").val(),
-    }).then(function (data) {
-      console.log(data);
-      localStorage.setItem("showObj", JSON.stringify(data));
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    //music genre Api call
-    $.post("/api/music_genres", {
-      musicGenre: $("#musicGenre1").val(),
-    }).then(function (data) {
-      console.log(data);
-      localStorage.setItem("musicObj", JSON.stringify(data));
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-    localStorage.setItem("gameGenre1", $("#gameGenre1").val());
-    localStorage.setItem("gameGenre2", $("#gameGenre2").val());
-    localStorage.setItem("gameGenre3", $("#gameGenre3").val());
-    console.log($("#console").val());
-    localStorage.setItem("platform", $("#console").val());
-
-
 
     var newUser = {
-      userName: $("#alias")
-        .val()
-        .trim(),
+      userName: $("#alias").val().trim(),
       avatarImg: photoPath,
-      bio: $("#bio")
-        .val()
-        .trim(),
+      bio: $("#bio").val().trim(),
       enjoyMovieTV: $("#movieCheck").is(":checked"),
       enjoyMusic: $("#musicCheck").is(":checked"),
       enjoyGame: $("#gameCheck").is(":checked"),
-      platform: $("#console")
-        .find(":selected")
-        .data("name"),
-      play1: $("#gameGenre1")
-        .find(":selected")
-        .data("name"),
-      play2: $("#gameGenre2")
-        .find(":selected")
-        .data("name"),
-      play3: $("#gameGenre3")
-        .find(":selected")
-        .data("name"),
+      play1: $("#gameGenre1").find(":selected").data("name"),
+      play1ID: $("#gameGenre1").val(),
+      play2: $("#gameGenre2").find(":selected").data("name"),
+      play2ID: $("#gameGenre2").val(),
+      play3: $("#gameGenre3").find(":selected").data("name"),
+      play3ID: $("#gameGenre3").val(),
       watch1: $("#videoGenre1").val(),
       watch2: $("#videoGenre2").val(),
       watch3: $("#videoGenre3").val(),
       listen1: $("#musicGenre1").val(),
       listen2: $("#musicGenre2").val(),
       listen3: $("#musicGenre3").val(),
-      UserId: id
+      UserId: id,
     };
 
     console.log(newUser);
     console.log(id);
-    localStorage.setItem("gameGenre1", $("#gameGenre1").val());
-    localStorage.setItem("gameGenre2", $("#gameGenre2").val());
-    localStorage.setItem("gameGenre3", $("#gameGenre3").val());
-    console.log($("#console").val());
-    localStorage.setItem("platform", $("#console").val());
 
-    addUserPref(
-      newUser.userName,
-      newUser.avatarImg,
-      newUser.bio,
-      newUser.enjoyMovieTV,
-      newUser.enjoyMusic,
-      newUser.enjoyGame,
-      newUser.platform,
-      newUser.play1,
-      newUser.play2,
-      newUser.play3,
-      newUser.watch1,
-      newUser.watch2,
-      newUser.watch3,
-      newUser.listen1,
-      newUser.listen2,
-      newUser.listen3,
-      newUser.UserId
-    );
-  });
+    //   addUserPref(
+    //     newUser.userName,
+    //     newUser.avatarImg,
+    //     newUser.bio,
+    //     newUser.enjoyMovieTV,
+    //     newUser.enjoyMusic,
+    //     newUser.enjoyGame,
+    //     newUser.platform,
+    //     newUser.platformID,
+    //     newUser.play1,
+    //     newUser.play1ID,
+    //     newUser.play2,
+    //     newUser.play2ID,
+    //     newUser.play3,
+    //     newUser.play3ID,
+    //     newUser.watch1,
+    //     newUser.watch2,
+    //     newUser.watch3,
+    //     newUser.listen1,
+    //     newUser.listen2,
+    //     newUser.listen3,
+    //     newUser.UserId
+    //   );
+    // });
 
-  function addUserPref(
-    userName,
-    avatarImg,
-    bio,
-    enjoyMovieTV,
-    enjoyMusic,
-    enjoyGame,
-    platform,
-    play1,
-    play2,
-    play3,
-    watch1,
-    watch2,
-    watch3,
-    listen1,
-    listen2,
-    listen3,
-    UserId
-  ) {
-    $.post("/api/userprefs", {
-      userName: userName,
-      avatarImg: avatarImg,
-      bio: bio,
-      enjoyMovieTV: enjoyMovieTV,
-      enjoyMusic: enjoyMusic,
-      enjoyGame: enjoyGame,
-      platform: platform,
-      play1: play1,
-      play2: play2,
-      play3: play3,
-      watch1: watch1,
-      watch2: watch2,
-      watch3: watch3,
-      listen1: listen1,
-      listen2: listen2,
-      listen3: listen3,
-      UserId: UserId
-    }).then(function (data) {
-      console.log("the then part works");
-      window.location = "/membership";
-      localStorage.setItem("dataObj", JSON.stringify(data));
-      console.log(data.userName, data.enjoyMovieTV);
-    })
+    // function addUserPref(
+    //   userName,
+    //   avatarImg,
+    //   bio,
+    //   enjoyMovieTV,
+    //   enjoyMusic,
+    //   enjoyGame,
+    //   platform,
+    //   platformID,
+    //   play1,
+    //   play1ID,
+    //   play2,
+    //   play2ID,
+    //   play3,
+    //   play3ID,
+    //   watch1,
+    //   watch2,
+    //   watch3,
+    //   listen1,
+    //   listen2,
+    //   listen3,
+    //   UserId
+    // ) {
+    $.post("/api/userprefs", newUser)
+      .then(function (data) {
+        window.location = "/membership";
+        // console.log(data.userName, data.enjoyMovieTV);
+      })
       .catch(function (error) {
         console.log(error);
       });
-  }
+  });
 });
-
