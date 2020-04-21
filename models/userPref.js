@@ -21,9 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       enjoyGame: {
         type: DataTypes.BOOLEAN
       },
-      platformID: {
-        type: DataTypes.STRING
-      },
       play1: {
         type: DataTypes.STRING
       },

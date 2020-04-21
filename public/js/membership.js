@@ -59,15 +59,20 @@ $(document).ready(function () {
       $(`#movieExtra${i + 1}`).html("<p></p>");
       $(`#movieExtra${i + 1}`).hide();
       $(`#movie${i + 1}Add`).on("click", function () {
+        const trailer = movieData[i].movie.trailer.split("=");
+        console.log(trailer[1]);
+        const trailerEmbed = "https://www.youtube.com/embed/" + trailer[1];
         $(`#movieExtra${i + 1}`).toggle("slow");
         $(`#movieExtra${i + 1}`).html(`
         <p>${movieData[i].movie.overview}</p>
         <p>Certification: ${movieData[i].movie.certification}</p>
         <p>Runtime: ${movieData[i].movie.runtime} Minutes</p>
-        <p>Rating:   ${movieData[i].movie.rating.toFixed(2)}</p>`);
+        <p>Rating:   ${movieData[i].movie.rating.toFixed(2)}</p>
+        <iframe width="90%" height="360px" src="${trailerEmbed}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
       });
     }
   }
+
 
   function buildShows(showData, mySet) {
     // console.log(showData);
@@ -86,12 +91,16 @@ $(document).ready(function () {
       $(`#showExtra${i + 1}`).html("<p></p>");
       $(`#showExtra${i + 1}`).hide();
       $(`#show${i + 1}Add`).on("click", function () {
+        const trailer = showData[i].show.trailer.split("=");
+        console.log(trailer[1]);
+        const trailerEmbed = "https://www.youtube.com/embed/" + trailer[1]
         $(`#showExtra${i + 1}`).toggle("slow");
         $(`#showExtra${i + 1}`).html(`<p>${showData[i].show.overview}</p>
         <p>Network: ${showData[i].show.network}</p>
         <p>Certification: ${showData[i].show.certification}</p>
         <p>Runtime: ${showData[i].show.runtime} Minutes</p>
-        <p>Rating:   ${showData[i].show.rating.toFixed(2)}</p>`);
+        <p>Rating:   ${showData[i].show.rating.toFixed(2)}</p>
+        <iframe width="90%" height="360px" src="${trailerEmbed}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
       });
     }
   }
