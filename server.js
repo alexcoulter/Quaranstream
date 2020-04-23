@@ -1,4 +1,5 @@
 require("dotenv").config();
+var compression = require("compression");
 // Requiring necessary npm packages
 var express = require("express");
 var session = require("express-session");
@@ -11,6 +12,7 @@ var db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
 var app = express();
+app.use(compression({ filter: shouldCompress }))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
