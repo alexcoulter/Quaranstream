@@ -52,6 +52,7 @@ $(document).ready(function () {
 
   $("#musicCheck").on("change", function () {
     if ($(this).is(":checked")) {
+      $("#musicDrop1").removeClass("invis");
       $("#musicGenre1").val(mySet.listen1);
       $("#musicDrop2").removeClass("invis");
       $("#musicGenre2").val(mySet.listen2);
