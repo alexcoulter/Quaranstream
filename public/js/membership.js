@@ -173,16 +173,16 @@ $(document).ready(function () {
   let mySet;
   let myID;
 
-  $.get("/api/users", function (data) {
+  $.get("/api/users", function () {
     // console.log(data);
   }).then((data) => {
     set = data;
   });
-  $.get("/api/user_data", function (data) {
+  $.get("/api/user_data", function () {
     // console.log(data);
   }).then((data) => {
     myID = data;
-    $.get(`/api/mydata/${myID.id}`, function (data) {
+    $.get(`/api/mydata/${myID.id}`, function () {
       // console.log(data);
     }).then((data) => {
       mySet = data;
@@ -378,10 +378,10 @@ $(document).ready(function () {
       image.thumb = `${url}/${image.id}/${width}x${height}`;
       image.url = `${url}/${image.id}`;
       return (html +=
-        '<a href="#" class="carousel-item">' +
+        "<a href='#' class='carousel-item'>" +
         "<img " +
         `src="${image.thumb}" ` +
-        'class="materialboxed" ' +
+        "class= 'materialboxed'" +
         `width="${width}" ` +
         `data-caption="${image.caption}" ` +
         "/>" +
