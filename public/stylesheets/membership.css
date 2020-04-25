@@ -58,6 +58,11 @@ color:white;
 
 .collection-item {
 background-color: rgba(0,0,0,0.5) !important;
+padding:2% !important;
+}
+
+.title, .link, .url, .rating {
+  padding-left: 75px;
 }
 
 .collection-header {
@@ -135,7 +140,11 @@ footer, .page-footer {
 
 @media only screen and (max-width: 767px) {
 /* For mobile: */
-.col-6 {
+.col-6, .container {
   width: 100% !important;
 }
+iframe {
+  height: 250px;
+}
+
 }

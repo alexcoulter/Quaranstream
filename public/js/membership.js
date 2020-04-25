@@ -24,7 +24,7 @@ $(document).ready(function () {
           .then(function (data) {
             // console.log(data);
             $(`#artistExtra${i + 1}`).html(`<br>
-            <p>${data.bio.content}</p><br>
+            <p class = "biog">${data.bio.content}</p><br>
             <p><u>Similar Artists: </p></u>
             <p>${data.similar.artist[0].name}   \u00A0\u00A0\u00A0\u00A0<a href = "${data.similar.artist[0].url}">Artist Radio</a></p>
             <p>${data.similar.artist[1].name}   \u00A0\u00A0\u00A0\u00A0<a href = "${data.similar.artist[1].url}">Artist Radio</a></p>
@@ -62,13 +62,13 @@ $(document).ready(function () {
         if (movieData[i].movie.trailer) {
           const trailer = movieData[i].movie.trailer.split("=");
           console.log(trailer[1]);
-          var trailerEmbed = `<iframe width="90%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          var trailerEmbed = `<iframe width="100%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else {
           var trailerEmbed = "";
         }
         $(`#movieExtra${i + 1}`).toggle("slow");
         $(`#movieExtra${i + 1}`).html(`
-        <p>${movieData[i].movie.overview}</p>
+        <p class = "biog">${movieData[i].movie.overview}</p>
         <p>Certification: ${movieData[i].movie.certification}</p>
         <p>Runtime: ${movieData[i].movie.runtime} Minutes</p>
        ${trailerEmbed}`);
@@ -96,13 +96,15 @@ $(document).ready(function () {
         if (showData[i].show.trailer) {
           const trailer = showData[i].show.trailer.split("=");
           console.log(trailer[1]);
-          var trailerEmbed = `<iframe width="90%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          var trailerEmbed = `<iframe width="100%" height="360px" src="https://www.youtube.com/embed/${trailer[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else {
           var trailerEmbed = "";
         }
 
         $(`#showExtra${i + 1}`).toggle("slow");
-        $(`#showExtra${i + 1}`).html(`<p>${showData[i].show.overview}</p>
+        $(
+          `#showExtra${i + 1}`
+        ).html(`<p class = "biog">${showData[i].show.overview}</p>
         <p>Network: ${showData[i].show.network}</p>
         <p>Certification: ${showData[i].show.certification}</p>
         <p>Runtime: ${showData[i].show.runtime} Minutes</p>
@@ -144,12 +146,14 @@ $(document).ready(function () {
               var gameRating = "";
             }
             if (data[0].screenshots) {
-              var screenshot = ` <p>Screenshot:</p><img src = "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${data[0].screenshots[0].image_id}.jpg" width = "90%"></img>`;
+              var screenshot = ` <p>Screenshot:</p><img src = "https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${data[0].screenshots[0].image_id}.jpg" width = "100%"></img>`;
             } else {
               screenshot = "";
             }
 
-            $(`#gameExtra${i + 1}`).html(`<br><p>${data[0].summary}</p>
+            $(
+              `#gameExtra${i + 1}`
+            ).html(`<br><p class = "biog">${data[0].summary}</p>
             ${gameRating}
            ${screenshot}`);
           })
