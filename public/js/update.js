@@ -11,7 +11,7 @@ $(document).ready(function () {
       $("#alias").val(mySet.userName);
       $("#bio").val(mySet.bio);
       photoPath = mySet.avatarImg;
-  
+
       genreData = {
         listenBool: mySet.enjoyMusic,
         watchBool: mySet.enjoyMovieTV,
@@ -20,10 +20,8 @@ $(document).ready(function () {
         watchGenre: [mySet.watch1, mySet.watch2, mySet.watch3],
         playGenre: [mySet.play1, mySet.play2, mySet.play3],
       };
-
     });
   });
-
 
   $("select").formSelect();
 

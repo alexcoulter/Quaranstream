@@ -55,7 +55,7 @@ $(document).ready(function () {
     id = info.id;
   });
 
-  let photoPath;
+  let photoPath = "./assets/virus.jpg";
 
   $(".material-icons").on("click", function () {
     photoPath = $(this).data("path");
