@@ -1,16 +1,42 @@
 $(document).ready(function () {
-  $.get("/api/user_data", function () {
-    // console.log(data);
-  }).then((data) => {
+  $.get("/api/user_data", function () {}).then((data) => {
     myID = data;
-    $.get(`/api/mydata/${myID.id}`, function () {
-      // console.log(data);
-    }).then((data) => {
+    $.get(`/api/mydata/${myID.id}`, function () {}).then((data) => {
       mySet = data;
-      console.log(mySet);
       $("#alias").val(mySet.userName);
       $("#bio").val(mySet.bio);
       photoPath = mySet.avatarImg;
+
+      if (mySet.enjoyMusic === true) {
+        $("#musicCheck").prop("checked", true);
+        $("#musicDrop1").removeClass("invis");
+        $("#musicGenre1").val(mySet.listen1);
+        $("#musicDrop2").removeClass("invis");
+        $("#musicGenre2").val(mySet.listen2);
+        $("#musicDrop3").removeClass("invis");
+        $("#musicGenre3").val(mySet.listen3);
+      }
+
+      if (mySet.enjoyGame === true) {
+        $("#gameCheck").prop("checked", true);
+        $("#gameDrop1").removeClass("invis");
+        $("#gameGenre1").val(mySet.play1ID);
+        $("#gameDrop2").removeClass("invis");
+        $("#gameGenre2").val(mySet.play2ID);
+        $("#gameDrop3").removeClass("invis");
+        $("#gameGenre3").val(mySet.play3ID);
+        $("#prefDrop").removeClass("invis");
+      }
+
+      if (mySet.enjoyMovieTV === true) {
+        $("#movieCheck").prop("checked", true);
+        $("#teleDrop1").removeClass("invis");
+        $("#videoGenre1").val(mySet.watch1);
+        $("#teleDrop2").removeClass("invis");
+        $("#videoGenre2").val(mySet.watch2);
+        $("#teleDrop3").removeClass("invis");
+        $("#videoGenre3").val(mySet.watch3);
+      }
 
       genreData = {
         listenBool: mySet.enjoyMusic,
@@ -81,21 +107,16 @@ $(document).ready(function () {
   var id;
 
   $.get("/api/user_data", function (info) {
-    console.log(info);
     id = info.id;
   });
 
   $(".material-icons").on("click", function () {
     photoPath = $(this).data("path");
     $(this).html("check_box");
-    // console.log("Clicked!");
-    // console.log(photoPath);
   });
 
   $("#submitBtn").on("click", function () {
     event.preventDefault();
-
-    console.log($("#gameGenre1").find(":selected").data("name"));
 
     if ($("#gameGenre1").find(":selected").data("name")) {
       play1 = $("#gameGenre1").find(":selected").data("name");
@@ -135,17 +156,13 @@ $(document).ready(function () {
       UserId: id,
     };
 
-    console.log(newUser);
-    console.log(id);
-
     $.ajax({
       method: "PUT",
       url: "/api/userprefs/" + id,
       data: newUser,
     })
-      .then(function (data) {
+      .then(function () {
         window.location = "/membership";
-        console.log(data);
       })
       .catch(function (error) {
         console.log(error);
